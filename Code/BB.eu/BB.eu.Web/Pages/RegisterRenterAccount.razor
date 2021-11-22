@@ -1,0 +1,45 @@
+﻿@page "/registerRenterAccount"
+@using BB.eu.Web.Services
+@using BB.eu.Shared.Models
+@inject IRenterService renterService
+
+<h3>RegisterRenterAccount</h3>
+
+@if (renters.Count == 0)
+{
+    <span>Loading Renters...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var renter in renters)
+        {
+            <tr>
+                <td>@renter.FirstName</td>
+                <td>@renter.LastName</td>
+                <td>@renter.Email</td>
+                <td>@renter.Password</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Renter> renters = new List<Renter>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        renters = await renterService.GetAllAsync();
+    }
+
+}
