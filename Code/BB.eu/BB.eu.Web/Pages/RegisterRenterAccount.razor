@@ -5,41 +5,42 @@
 
 <h3>RegisterRenterAccount</h3>
 
-@if (renters.Count == 0)
-{
-    <span>Loading Renters...</span>
-}
-else
-{
-    <table class="table">
-        <thead>
-        <tr>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>Password</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var renter in renters)
-        {
-            <tr>
-                <td>@renter.FirstName</td>
-                <td>@renter.LastName</td>
-                <td>@renter.Email</td>
-                <td>@renter.Password</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<EditForm Model="Renter" OnSubmit="HandeSubmit">
+    <div class="form-group">
+        <label >First Name</label>
+        <InputText @bind-Value="Renter.FirstName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label >Last Name</label>
+        <InputText @bind-Value="Renter.LastName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label >Email</label>
+        <InputText @bind-Value="Renter.Email" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label >Age</label>
+        <InputNumber @bind-Value="Renter.Age" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label >Age</label>
+        <InputText @bind-Value="Renter.Password" class="form-control"></InputText>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+
+</EditForm>
 
 @code {
-    List<Renter> renters = new List<Renter>();
+    public Renter Renter { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+
+    private async Task HandeSubmit()
     {
-        renters = await renterService.GetAllAsync();
+        Console.WriteLine(Renter.Email);
+        Renter renter = await renterService.CreateAsync(Renter);
+
+        Console.WriteLine(renter.Id);
+    // throw new NotImplementedException();
     }
 
 }

@@ -30,7 +30,7 @@ namespace BB.eu.API
 
             services.AddCors(corsOptions =>
             {
-                corsOptions.AddDefaultPolicy(builder => builder.AllowAnyHeader().AllowAnyOrigin());
+                corsOptions.AddDefaultPolicy(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
             });
 
             services.AddSingleton<DataContext>();

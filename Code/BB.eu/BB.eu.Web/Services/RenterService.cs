@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,9 +16,12 @@ namespace BB.eu.Web.Services
             this.httpClient = httpClient;
         }
 
-        public Task<Renter> CreateAsync(Renter entity)
+        public async Task<Renter> CreateAsync(Renter entity)
         {
-            throw new System.NotImplementedException();
+            HttpResponseMessage result = await httpClient.PutAsJsonAsync($"Renter/Create", entity);
+            var renter = await result.Content.ReadFromJsonAsync<Renter>();
+            // Console.WriteLine(renter.FirstName);
+            return renter;
         }
 
         public Task<bool> UpdateAsync(Renter entity)
