@@ -67,7 +67,6 @@ namespace BB.eu.API.Tests
                 Id = rand.Next(100),
                 FirstName = "",
                 LastName = "",
-                Age = rand.Next(200),
                 Email = "asd",
                 Rooms = new List<Room>(),
                 Password = "dasd"

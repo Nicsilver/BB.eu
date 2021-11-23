@@ -10,6 +10,7 @@ namespace BB.eu.API.Data
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

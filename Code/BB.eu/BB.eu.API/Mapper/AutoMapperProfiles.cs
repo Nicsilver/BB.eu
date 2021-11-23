@@ -10,6 +10,7 @@ namespace BB.eu.API.Mapper
         {
             CreateMap<RegisterAccountRequest, Renter>();
             CreateMap<RegisterAccountRequest, Tenant>();
+            CreateMap<LoginRequest, Tenant>();
         }
     }
 }

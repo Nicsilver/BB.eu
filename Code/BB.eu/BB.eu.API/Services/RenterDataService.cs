@@ -17,6 +17,9 @@ namespace BB.eu.API.Services
 
         public async Task<Renter> CreateAsync(Renter entity)
         {
+            Renter r = await GetByEmailAsync(entity.Email);
+            if (r != null) return null;
+
             var entityEntry = await dataContext.AddAsync(entity);
             int isCreated = await dataContext.SaveChangesAsync();
 
@@ -57,6 +60,16 @@ namespace BB.eu.API.Services
                 .Include(x => x.Rooms)
                 .ThenInclude(x => x.Pictures)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            return renter;
+        }
+
+        public async Task<Renter> GetByEmailAsync(string email)
+        {
+            Renter renter = await dataContext.Renters
+                .Include(x => x.Rooms)
+                .ThenInclude(x => x.Pictures)
+                .FirstOrDefaultAsync(x => x.Email == email);
 
             return renter;
         }

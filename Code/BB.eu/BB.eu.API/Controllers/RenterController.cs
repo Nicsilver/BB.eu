@@ -29,7 +29,7 @@ namespace BB.eu.API.Controllers
             Renter renter = mapper.Map<Renter>(registerRenterRequest);
             Renter result = await renterDataService.CreateAsync(renter);
 
-            return result is null ? BadRequest() : result;
+            return result is null ? BadRequest("Email already exists") : result;
         }
 
         [HttpGet]
@@ -48,6 +48,16 @@ namespace BB.eu.API.Controllers
             var renters = await renterDataService.GetAllAsync();
 
             return renters == null ? NotFound() : renters;
+        }
+
+        [HttpPut]
+        [Route("Login")]
+        public async Task<ActionResult<Renter>> LoginAsync([FromBody] LoginRequest entity)
+        {
+            Renter renter = await renterDataService.GetByEmailAsync(entity.Email);
+
+            if (renter == null) return NotFound();
+            return renter.Password == entity.Password ? renter : NotFound();
         }
     }
 }

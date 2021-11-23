@@ -3,43 +3,61 @@
 @using BB.eu.Shared.Models
 @inject IRenterService renterService
 
-<h3>RegisterRenterAccount</h3>
 
-<EditForm Model="Renter" OnSubmit="HandeSubmit">
-    <div class="form-group">
-        <label >First Name</label>
-        <InputText @bind-Value="Renter.FirstName" class="form-control"></InputText>
+<EditForm Model="Renter" OnSubmit="HandleSubmit">
+    <DataAnnotationsValidator/>
+    <h3>RegisterRenterAccount</h3>
+    <hr/>
+    <ValidationSummary/>
+
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-1 col-form-label">First Name</label>
+        <div class="col-sm-2">
+            <InputText id="firstName" class="form-control" placeholder="John"
+                       @bind-Value="Renter.FirstName"/>
+            <ValidationMessage For="() => Renter.FirstName"/>
+        </div>
     </div>
-    <div class="form-group">
-        <label >Last Name</label>
-        <InputText @bind-Value="Renter.LastName" class="form-control"></InputText>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-1 col-form-label">Last Name</label>
+        <div class="col-sm-2">
+            <InputText id="lastName" class="form-control" placeholder="Smith"
+                       @bind-Value="Renter.LastName"/>
+            <ValidationMessage For="() => Renter.LastName"></ValidationMessage>
+        </div>
     </div>
-    <div class="form-group">
-        <label >Email</label>
-        <InputText @bind-Value="Renter.Email" class="form-control"></InputText>
+    <div class="form-group row">
+        <label for="email" class="col-sm-1 col-form-label">Email</label>
+        <div class="col-sm-2">
+            <InputText id="email" class="form-control" placeholder="example@example.com"
+                       @bind-Value="Renter.Email"/>
+            <ValidationMessage For="() => Renter.Email"></ValidationMessage>
+        </div>
     </div>
-    <div class="form-group">
-        <label >Age</label>
-        <InputNumber @bind-Value="Renter.Age" class="form-control"></InputNumber>
+    <div class="form-group row">
+        <label for="password" class="col-sm-1 col-form-label">Password</label>
+        <div class="col-sm-2">
+            <InputText type="password" id="password" class="form-control" placeholder="Password"
+                       @bind-Value="Renter.Password"/>
+            <ValidationMessage For="() => Renter.Password"></ValidationMessage>
+        </div>
     </div>
-    <div class="form-group">
-        <label >Age</label>
-        <InputText @bind-Value="Renter.Password" class="form-control"></InputText>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary" disabled="@(!context.IsModified() || !context.Validate())">Register</button>
 
 </EditForm>
 
 @code {
-    public Renter Renter { get; set; } = new();
+    private Renter Renter { get; set; } = new();
 
 
-    private async Task HandeSubmit()
+    private async Task HandleSubmit()
     {
         Console.WriteLine(Renter.Email);
         Renter renter = await renterService.CreateAsync(Renter);
 
         Console.WriteLine(renter.Id);
+        Renter = new Renter();
+
     // throw new NotImplementedException();
     }
 

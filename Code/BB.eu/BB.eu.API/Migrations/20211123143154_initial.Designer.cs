@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BB.eu.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211122111009_initial")]
+    [Migration("20211123143154_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace BB.eu.API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BB.eu.API.Models.Address", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,30 @@ namespace BB.eu.API.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Picture", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("RentedFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RentedTill")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("BB.eu.Shared.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,15 +91,12 @@ namespace BB.eu.API.Migrations
                     b.ToTable("Pictures");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Renter", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Renter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -95,7 +115,7 @@ namespace BB.eu.API.Migrations
                     b.ToTable("Renters");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Room", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,12 +127,6 @@ namespace BB.eu.API.Migrations
 
                     b.Property<int>("GuestCount")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("RentedTill")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("RenterId")
                         .HasColumnType("int");
@@ -132,7 +146,7 @@ namespace BB.eu.API.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Tenant", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Tenant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,42 +178,51 @@ namespace BB.eu.API.Migrations
                     b.ToTable("Tenants");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Picture", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Booking", b =>
                 {
-                    b.HasOne("BB.eu.API.Models.Room", null)
+                    b.HasOne("BB.eu.Shared.Models.Room", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("BB.eu.Shared.Models.Picture", b =>
+                {
+                    b.HasOne("BB.eu.Shared.Models.Room", null)
                         .WithMany("Pictures")
                         .HasForeignKey("RoomId");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Room", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Room", b =>
                 {
-                    b.HasOne("BB.eu.API.Models.Address", "Address")
+                    b.HasOne("BB.eu.Shared.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("BB.eu.API.Models.Renter", null)
+                    b.HasOne("BB.eu.Shared.Models.Renter", null)
                         .WithMany("Rooms")
                         .HasForeignKey("RenterId");
 
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Tenant", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Tenant", b =>
                 {
-                    b.HasOne("BB.eu.API.Models.Room", "Room")
+                    b.HasOne("BB.eu.Shared.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId");
 
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Renter", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Renter", b =>
                 {
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("BB.eu.API.Models.Room", b =>
+            modelBuilder.Entity("BB.eu.Shared.Models.Room", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Pictures");
                 });
 #pragma warning restore 612, 618
