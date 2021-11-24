@@ -59,9 +59,14 @@ namespace BB.eu.API.Migrations
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Bookings");
                 });
@@ -97,15 +102,22 @@ namespace BB.eu.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -126,13 +138,18 @@ namespace BB.eu.API.Migrations
                     b.Property<int>("GuestCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.Property<int?>("RenterId")
                         .HasColumnType("int");
 
                     b.Property<string>("RoomDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -151,27 +168,26 @@ namespace BB.eu.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoomId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Tenants");
                 });
@@ -181,6 +197,10 @@ namespace BB.eu.API.Migrations
                     b.HasOne("BB.eu.Shared.Models.Room", null)
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId");
+
+                    b.HasOne("BB.eu.Shared.Models.Tenant", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("TenantId");
                 });
 
             modelBuilder.Entity("BB.eu.Shared.Models.Picture", b =>
@@ -203,15 +223,6 @@ namespace BB.eu.API.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("BB.eu.Shared.Models.Tenant", b =>
-                {
-                    b.HasOne("BB.eu.Shared.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("BB.eu.Shared.Models.Renter", b =>
                 {
                     b.Navigation("Rooms");
@@ -222,6 +233,11 @@ namespace BB.eu.API.Migrations
                     b.Navigation("Bookings");
 
                     b.Navigation("Pictures");
+                });
+
+            modelBuilder.Entity("BB.eu.Shared.Models.Tenant", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

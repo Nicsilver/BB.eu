@@ -8,15 +8,17 @@ namespace BB.eu.API.Services
 {
     public class TenantDataService : ITenantDataService
     {
-        private readonly DataContext dataContext;
+        private readonly DataContextFactory contextFactory;
 
-        public TenantDataService(DataContext dataContext)
+        public TenantDataService(DataContextFactory contextFactory)
         {
-            this.dataContext = dataContext;
+            this.contextFactory = contextFactory;
         }
 
         public async Task<Tenant> CreateAsync(Tenant entity)
         {
+            DataContext dataContext = contextFactory.CreateDbContext();
+
             var entityEntry = await dataContext.AddAsync(entity);
             int isCreated = await dataContext.SaveChangesAsync();
 
@@ -25,6 +27,8 @@ namespace BB.eu.API.Services
 
         public async Task<bool> UpdateAsync(Tenant entity)
         {
+            DataContext dataContext = contextFactory.CreateDbContext();
+
             dataContext.Tenants.Update(entity);
             int updated = await dataContext.SaveChangesAsync();
 
@@ -33,6 +37,8 @@ namespace BB.eu.API.Services
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
+            DataContext dataContext = contextFactory.CreateDbContext();
+
             Tenant entity = await GetByIdAsync(id);
 
             dataContext.Tenants.Remove(entity);
@@ -43,11 +49,15 @@ namespace BB.eu.API.Services
 
         public async Task<List<Tenant>> GetAllAsync()
         {
+            DataContext dataContext = contextFactory.CreateDbContext();
+
             return await dataContext.Tenants.ToListAsync();
         }
 
         public async Task<Tenant> GetByIdAsync(int id)
         {
+            DataContext dataContext = contextFactory.CreateDbContext();
+
             return await dataContext.Tenants.FirstOrDefaultAsync(x => x.Id == id);
         }
     }

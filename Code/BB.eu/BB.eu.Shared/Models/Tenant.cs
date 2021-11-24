@@ -1,8 +1,9 @@
-﻿namespace BB.eu.Shared.Models
+﻿using System.Collections.Generic;
+
+namespace BB.eu.Shared.Models
 {
     public class Tenant : AccountBase
     {
-        public int Age { get; set; }
-        public Room Room { get; set; }
+        public List<Booking> Bookings { get; set; } = new();
     }
 }

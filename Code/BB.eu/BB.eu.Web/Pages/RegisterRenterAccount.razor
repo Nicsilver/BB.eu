@@ -4,11 +4,9 @@
 @inject IRenterService renterService
 
 
-<EditForm Model="Renter" OnSubmit="HandleSubmit">
-    <DataAnnotationsValidator/>
+<EditForm EditContext="editContext" OnValidSubmit="HandleSubmit">
     <h3>RegisterRenterAccount</h3>
     <hr/>
-    <ValidationSummary/>
 
     <div class="form-group row">
         <label for="firstName" class="col-sm-1 col-form-label">First Name</label>
@@ -23,7 +21,7 @@
         <div class="col-sm-2">
             <InputText id="lastName" class="form-control" placeholder="Smith"
                        @bind-Value="Renter.LastName"/>
-            <ValidationMessage For="() => Renter.LastName"></ValidationMessage>
+            <ValidationMessage For="() => Renter.LastName"/>
         </div>
     </div>
     <div class="form-group row">
@@ -31,7 +29,7 @@
         <div class="col-sm-2">
             <InputText id="email" class="form-control" placeholder="example@example.com"
                        @bind-Value="Renter.Email"/>
-            <ValidationMessage For="() => Renter.Email"></ValidationMessage>
+            <ValidationMessage For="() => Renter.Email"/>
         </div>
     </div>
     <div class="form-group row">
@@ -39,26 +37,37 @@
         <div class="col-sm-2">
             <InputText type="password" id="password" class="form-control" placeholder="Password"
                        @bind-Value="Renter.Password"/>
-            <ValidationMessage For="() => Renter.Password"></ValidationMessage>
+            <ValidationMessage For="() => Renter.Password"/>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" disabled="@(!context.IsModified() || !context.Validate())">Register</button>
+    <button type="submit" class="btn btn-primary">Register</button>
 
 </EditForm>
 
 @code {
     private Renter Renter { get; set; } = new();
+    private EditContext editContext;
+    private bool isDisabled;
 
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(Renter);
+        editContext.AddDataAnnotationsValidation();
+    }
 
     private async Task HandleSubmit()
     {
         Console.WriteLine(Renter.Email);
+        Console.WriteLine(Renter.FirstName);
+        Console.WriteLine(Renter.LastName);
+        Console.WriteLine(Renter.Password);
         Renter renter = await renterService.CreateAsync(Renter);
 
         Console.WriteLine(renter.Id);
         Renter = new Renter();
 
     // throw new NotImplementedException();
+        editContext.MarkAsUnmodified();
     }
 
 }

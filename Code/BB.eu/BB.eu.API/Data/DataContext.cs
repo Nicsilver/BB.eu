@@ -1,5 +1,7 @@
-﻿using BB.eu.Shared.Models;
+﻿using System.Xml.Linq;
+using BB.eu.Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace BB.eu.API.Data
 {
@@ -12,9 +14,6 @@ namespace BB.eu.API.Data
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Booking> Bookings { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=BB.eu;Trusted_Connection=True;");
-        }
+        public DataContext(DbContextOptions options) : base(options) { }
     }
 }
