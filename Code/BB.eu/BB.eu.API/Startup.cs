@@ -36,6 +36,7 @@ namespace BB.eu.API
             // services.AddSingleton<DataContext>();
             services.AddSingleton<DataContextFactory>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddScoped<IRoomDataService, RoomDataService>();
             services.AddScoped<IRenterDataService, RenterDataService>();
             services.AddScoped<ITenantDataService, TenantDataService>();
         }

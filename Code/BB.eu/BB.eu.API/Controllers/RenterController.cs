@@ -36,7 +36,7 @@ namespace BB.eu.API.Controllers
 
         [HttpGet]
         [Route("Get")]
-        public async Task<ActionResult<Renter>> GetByIdAsync(int id)
+        public async Task<ActionResult<Renter>> GetByIdAsync(int id) //Change renter result to GetRenterResponse
         {
             Renter renter = await renterDataService.GetByIdAsync(id);
 
@@ -60,18 +60,6 @@ namespace BB.eu.API.Controllers
 
             if (renter == null) return NotFound();
             return renter.Password == entity.Password ? mapper.Map<RenterLoginResponse>(renter) : NotFound();
-        }
-
-        //TODO maybe create room should live in its own controller, this goes for a dataservice
-        // as well should renter service be able to create a room?
-        [HttpPut]
-        [Route("CreateRoom")]
-        public async Task<ActionResult<Room>> CreateRoomAsync([FromBody] CreateRoomRequest request)
-        {
-            Room room = mapper.Map<Room>(request);
-            Guid guid = request.Guid;
-
-            return await renterDataService.CreateRoomAsync(room, guid);
         }
     }
 }

@@ -87,16 +87,5 @@ namespace BB.eu.API.Services
 
             return renter;
         }
-
-        public async Task<Room> CreateRoomAsync(Room room, Guid renterGuid)
-        {
-            DataContext dataContext = contextFactory.CreateDbContext();
-
-            var entity = await dataContext.Renters.FirstOrDefaultAsync(x => x.Guid == renterGuid);
-            entity.Rooms.Add(room);
-
-            await dataContext.SaveChangesAsync();
-            return room;
-        }
     }
 }
