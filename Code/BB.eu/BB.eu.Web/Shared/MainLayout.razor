@@ -1,5 +1,6 @@
 @inherits LayoutComponentBase
 
+
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -7,7 +8,26 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="LoginRenter">
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Login Renter
+                </NavLink>
+            </li>
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="LoginTenant">
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Login Tenant
+                </NavLink>
+            </li>
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="RegisterRenterAccount">
+                    <span class="oi oi-people" aria-hidden="true"></span> Register Renter Account
+                </NavLink>
+            </li>
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="RegisterRenterAccount">
+                    <span class="oi oi-people" aria-hidden="true"></span> Register Tenant Account
+                </NavLink>
+            </li>
         </div>
 
         <div class="content px-4">
@@ -15,3 +35,8 @@
         </div>
     </div>
 </div>
+
+@code
+{
+
+}
