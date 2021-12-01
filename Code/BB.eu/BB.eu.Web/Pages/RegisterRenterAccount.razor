@@ -1,25 +1,28 @@
 ﻿@page "/registerRenterAccount"
 @using BB.eu.Web.Services
 @using BB.eu.Shared.Models
+@using BB.eu.Web.Data
 @inject IRenterService renterService
+@inject LoginState loginState
+@inject NavigationManager navigationManager
 
 
 <EditForm EditContext="editContext" OnValidSubmit="HandleSubmit">
-    <h3>RegisterRenterAccount</h3>
+    <h3>Registrer konto</h3>
     <hr/>
 
     <div class="form-group row">
-        <label for="firstName" class="col-sm-1 col-form-label">First Name</label>
+        <label for="firstName" class="col-sm-1 col-form-label">Fornavn</label>
         <div class="col-sm-2">
-            <InputText id="firstName" class="form-control" placeholder="John"
+            <InputText id="firstName" class="form-control" placeholder="Jens"
                        @bind-Value="Renter.FirstName"/>
             <ValidationMessage For="() => Renter.FirstName"/>
         </div>
     </div>
     <div class="form-group row">
-        <label for="lastName" class="col-sm-1 col-form-label">Last Name</label>
+        <label for="lastName" class="col-sm-1 col-form-label">Efternavn</label>
         <div class="col-sm-2">
-            <InputText id="lastName" class="form-control" placeholder="Smith"
+            <InputText id="lastName" class="form-control" placeholder="Jensen"
                        @bind-Value="Renter.LastName"/>
             <ValidationMessage For="() => Renter.LastName"/>
         </div>
@@ -27,7 +30,7 @@
     <div class="form-group row">
         <label for="email" class="col-sm-1 col-form-label">Email</label>
         <div class="col-sm-2">
-            <InputText id="email" class="form-control" placeholder="example@example.com"
+            <InputText id="email" class="form-control" placeholder="jens.jensen@yahoo.dk"
                        @bind-Value="Renter.Email"/>
             <ValidationMessage For="() => Renter.Email"/>
         </div>
@@ -47,7 +50,6 @@
 @code {
     private Renter Renter { get; set; } = new();
     private EditContext editContext;
-    private bool isDisabled;
 
     protected override void OnInitialized()
     {
@@ -57,14 +59,13 @@
 
     private async Task HandleSubmit()
     {
-        Console.WriteLine(Renter.Email);
-        Console.WriteLine(Renter.FirstName);
-        Console.WriteLine(Renter.LastName);
-        Console.WriteLine(Renter.Password);
         Renter renter = await renterService.CreateAsync(Renter);
 
         Console.WriteLine(renter.Id);
         Renter = new Renter();
+        loginState.SetLogin(true, renter);
+
+        navigationManager.NavigateTo("/RenterProfile");
 
     // throw new NotImplementedException();
         editContext.MarkAsUnmodified();

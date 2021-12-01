@@ -19,7 +19,7 @@ namespace BB.eu.API.Services
         {
             DataContext dataContext = contextFactory.CreateDbContext();
 
-            var entity = await dataContext.Renters.FirstOrDefaultAsync(x => x.Guid == guid);
+            var entity = await dataContext.Renters.FirstOrDefaultAsync(x => x.Guid.Equals(guid));
             entity.Rooms.Add(room);
 
             await dataContext.SaveChangesAsync();

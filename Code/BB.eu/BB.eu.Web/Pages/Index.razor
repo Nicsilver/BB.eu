@@ -1,7 +1,11 @@
 ﻿@page "/"
+@inject Data.LoginState loginState
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@if (!loginState.IsLoggedIn)
+{
+    <h1>Velkommen til BB.eu</h1>
+}
+else
+{
+    <h1> Velkommen tilbage - @loginState.Renter.FirstName @loginState.Renter.LastName</h1>
+}

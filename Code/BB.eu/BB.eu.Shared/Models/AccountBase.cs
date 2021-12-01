@@ -8,7 +8,7 @@ namespace BB.eu.Shared.Models
         [Required] [MinLength(2)] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
         [Required] public string Password { get; set; }
-        [Required] public string Email { get; set; }
+        [EmailAddress] [Required] public string Email { get; set; }
         public Guid Guid { get; set; }
     }
 }

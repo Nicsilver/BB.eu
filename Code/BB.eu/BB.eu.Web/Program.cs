@@ -24,6 +24,8 @@ namespace BB.eu.Web
             builder.Services.AddScoped(sp => new HttpClient
                 { BaseAddress = new Uri("https://localhost:5001/") });
 
+            builder.Services.AddSingleton<Data.LoginState>();
+
             // builder.Services.AddCors
 
             builder.Services.AddScoped<IRenterService, RenterService>();

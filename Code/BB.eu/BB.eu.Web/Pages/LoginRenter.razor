@@ -1,11 +1,19 @@
-﻿@page "/LoginRenter"
+﻿@page "/RenterProfile"
 @using BB.eu.Web.Services
 @using BB.eu.Shared.Models
 @inject IRenterService renterService
+@inject Data.LoginState loginState
 
-<h3>LoginRenter</h3>
+@if (!loginState.IsLoggedIn)
+{
+    <h3>Log ind som udlejer</h3>
+}
+else
+{
+    <h3>Profil</h3>
+}
 
-@if (!IsLoggedIn)
+@if (!loginState.IsLoggedIn)
 {
     <EditForm Model="Renter" OnSubmit="HandleSubmit">
         <div class="form-group">
@@ -21,29 +29,31 @@
 }
 else
 {
-    <EditForm Model="Renter">
-        <div class="form-group">
-            <label class="font-weight-bold´8">Id: </label>
-            <label>@Renter.Id</label>
-        </div>
+    <EditForm Model="Renter" class="h5">
         <div class="form-group">
             <label class="font-weight-bold´8">Email: </label>
             <label>@Renter.Email</label>
         </div>
         <div class="form-group">
-            <label class="font-weight-bold´8">FirstName: </label>
+            <label class="font-weight-bold´8">Fornavn: </label>
             <label>@Renter.FirstName</label>
         </div>
         <div class="form-group">
-            <label class="font-weight-bold´8">LastName: </label>
+            <label class="font-weight-bold´8">Efternavn: </label>
             <label>@Renter.LastName</label>
         </div>
     </EditForm>
 }
 
 @code {
+
+    protected override void OnInitialized()
+    {
+        Renter = loginState.Renter;
+        loginState.OnChange += StateHasChanged;
+    }
+
     private Renter Renter { get; set; } = new Renter();
-    public bool IsLoggedIn = false;
 
     private async Task HandleSubmit()
     {
@@ -51,7 +61,8 @@ else
         if (r == null)
             return;
         Renter = r;
-        IsLoggedIn = true;
+        loginState.SetLogin(true, Renter);
     }
+
 
 }

@@ -8,5 +8,6 @@ namespace BB.eu.API.Services
     public interface IRenterDataService : IWriteAble<Renter>, IReadAble<Renter>
     {
         Task<Renter> GetByEmailAsync(string email);
+
     }
 }
