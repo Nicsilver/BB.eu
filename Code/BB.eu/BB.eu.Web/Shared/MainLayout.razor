@@ -6,23 +6,19 @@
 @inject Data.LoginState loginState
 
 <div class="page">
-    @* <div class="sidebar"> *@
-    @* <NavMenu/> *@
-    @* </div> *@
-
     <div class="main">
-        <NavLink class="nav-link navbar-text float-left" href="" Match="NavLinkMatch.All">
-            <span class="oi oi-home" aria-hidden="true"></span> Home
-        </NavLink>
-        <div class="top-row px-2">
+        <div class="d-flex top-row p-0">
+            <NavLink class="mr-auto ml-0 nav-link p-0 navbar-text float-left" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
             @if (loginState.IsLoggedIn.Equals(false))
             {
                 <NavLink class="nav-link" href="RenterProfile">
-                    <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Log ind
                 </NavLink>
 
                 <NavLink class="nav-link" href="RegisterRenterAccount">
-                    <span class="oi oi-person" aria-hidden="true"></span> Register konto
+                    <span class="oi oi-person" aria-hidden="true"></span> Registrer konto
                 </NavLink>
             }
             else
@@ -31,7 +27,7 @@
                     <NavLink class="nav-link" href="RenterProfile">
                         <span class="oi oi-person" aria-hidden="true"></span> Profile
                     </NavLink>
-                    <button @onclick="Logout" class="btn-primary">Logout</button>
+                    <button @onclick="Logout" class="btn btn-primary">Logout</button>
                 </div>
             }
         </div>

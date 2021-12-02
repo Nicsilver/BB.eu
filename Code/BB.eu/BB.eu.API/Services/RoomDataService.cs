@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BB.eu.API.Services
 {
-    class RoomDataService : IRoomDataService
+    public class RoomDataService : IRoomDataService
     {
         private readonly DataContextFactory contextFactory;
 
