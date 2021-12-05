@@ -24,6 +24,7 @@ namespace BB.eu.API.Services
             if (r != null) return null;
 
             entity.Guid = Guid.NewGuid();
+
             var entityEntry = await dataContext.AddAsync(entity);
             int isCreated = await dataContext.SaveChangesAsync();
 
