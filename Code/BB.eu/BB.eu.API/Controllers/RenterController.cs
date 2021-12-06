@@ -16,7 +16,7 @@ namespace BB.eu.API.Controllers
     {
         private readonly IRenterDataService renterDataService;
         private readonly IMapper mapper;
-
+    
         public RenterController(IRenterDataService renterDataService, IMapper mapper)
         {
             this.renterDataService = renterDataService;
