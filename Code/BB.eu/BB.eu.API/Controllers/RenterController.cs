@@ -36,7 +36,7 @@ namespace BB.eu.API.Controllers
 
         [HttpGet]
         [Route("Get")]
-        public async Task<ActionResult<Renter>> GetByIdAsync(int id) //Change renter result to GetRenterResponse
+        public async Task<ActionResult<Renter>> GetByIdAsync(int id) //TODO Change renter result to GetRenterResponse
         {
             Renter renter = await renterDataService.GetByIdAsync(id);
 
