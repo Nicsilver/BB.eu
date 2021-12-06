@@ -157,11 +157,11 @@ namespace BB.eu.API.Tests
             return new Renter
             {
                 Id = rand.Next(100),
-                FirstName = "",
-                LastName = "",
-                Email = "asd",
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "smith@email.com",
                 Rooms = new List<Room>(),
-                Password = "dasd",
+                Password = "password",
             };
         }
     }

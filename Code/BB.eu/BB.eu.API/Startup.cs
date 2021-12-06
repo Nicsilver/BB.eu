@@ -33,7 +33,6 @@ namespace BB.eu.API
                 corsOptions.AddDefaultPolicy(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
             });
 
-            // services.AddSingleton<DataContext>();
             services.AddSingleton<DataContextFactory>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IRoomDataService, RoomDataService>();

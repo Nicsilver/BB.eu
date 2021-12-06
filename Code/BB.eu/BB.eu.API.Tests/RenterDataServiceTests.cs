@@ -28,7 +28,6 @@ namespace BB.eu.API.Tests
 
             var factory = new DataContextFactory(config.Build());
 
-
             DataContext context = factory.CreateDbContext();
 
             context.ChangeTracker
