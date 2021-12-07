@@ -21,7 +21,6 @@ namespace BB.eu.Web.Services
         {
             HttpResponseMessage result = await httpClient.PutAsJsonAsync($"Renter/Create", entity);
             var renter = await result.Content.ReadFromJsonAsync<Renter>();
-            // Console.WriteLine(renter.FirstName);
             return renter;
         }
 
@@ -31,16 +30,6 @@ namespace BB.eu.Web.Services
         }
 
         public Task<bool> DeleteByIdAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<List<Renter>> GetAllAsync()
-        {
-            return await httpClient.GetFromJsonAsync<List<Renter>>("Renter/GetAll");
-        }
-
-        public Task<Renter> GetByIdAsync(int id)
         {
             throw new System.NotImplementedException();
         }
