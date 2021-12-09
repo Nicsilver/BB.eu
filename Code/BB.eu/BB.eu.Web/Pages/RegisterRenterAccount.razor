@@ -60,14 +60,9 @@
     private async Task HandleSubmit()
     {
         Renter renter = await renterService.CreateAsync(Renter);
-
-        Console.WriteLine(renter.Id);
         Renter = new Renter();
         loginState.SetLogin(true, renter);
-
         navigationManager.NavigateTo("/RenterProfile");
-
-    // throw new NotImplementedException();
         editContext.MarkAsUnmodified();
     }
 
