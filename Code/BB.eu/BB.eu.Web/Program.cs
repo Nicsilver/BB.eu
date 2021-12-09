@@ -16,17 +16,17 @@ namespace BB.eu.Web
     {
         public static async Task Main(string[] args)
         {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            //
+
             // builder.Services.AddScoped(sp => new HttpClient
             //     { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
             builder.Services.AddScoped(sp => new HttpClient
                 { BaseAddress = new Uri("https://localhost:5001/") });
 
             builder.Services.AddSingleton<Data.LoginState>();
 
-            // builder.Services.AddCors
 
             builder.Services.AddScoped<IRenterService, RenterService>();
             await builder.Build().RunAsync();
