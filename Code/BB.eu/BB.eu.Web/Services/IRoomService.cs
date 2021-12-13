@@ -4,8 +4,8 @@ using BB.eu.Shared.Requests;
 
 namespace BB.eu.Web.Services
 {
-    public interface IRenterService : IWriteAble<Renter>
+    public interface IRoomService
     {
-        Task<Renter> LoginAsync(Renter entity);
+        Task<Room> CreateRoom(CreateRoomRequest request);
     }
 }

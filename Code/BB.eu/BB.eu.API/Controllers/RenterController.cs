@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using BB.eu.API.Requests;
 using BB.eu.API.Responses;
 using BB.eu.API.Services;
 using BB.eu.Shared.Models;
+using BB.eu.Shared.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BB.eu.API.Controllers

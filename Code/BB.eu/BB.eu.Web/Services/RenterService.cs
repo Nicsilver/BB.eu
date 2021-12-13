@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BB.eu.Shared.Models;
+using BB.eu.Shared.Requests;
 
 namespace BB.eu.Web.Services
 {
@@ -41,5 +40,7 @@ namespace BB.eu.Web.Services
             if (responseMessage.StatusCode != HttpStatusCode.OK) return null;
             return await responseMessage.Content.ReadFromJsonAsync<Renter>();
         }
+
+
     }
 }

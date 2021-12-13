@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BB.eu.API.Services.Generic;
 using BB.eu.Shared.Models;
 

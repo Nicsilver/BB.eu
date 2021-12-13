@@ -1,14 +1,10 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using BB.eu.Shared.Models;
 using BB.eu.Web.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace BB.eu.Web
 {
@@ -27,8 +23,8 @@ namespace BB.eu.Web
 
             builder.Services.AddSingleton<Data.LoginState>();
 
-
             builder.Services.AddScoped<IRenterService, RenterService>();
+            builder.Services.AddScoped<IRoomService, RoomService>();
             await builder.Build().RunAsync();
         }
     }

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using BB.eu.API.Controllers;
-using BB.eu.API.Requests;
 using BB.eu.API.Responses;
 using BB.eu.Shared.Models;
+using BB.eu.Shared.Requests;
 
 namespace BB.eu.API.Mapper
 {
@@ -18,7 +17,6 @@ namespace BB.eu.API.Mapper
             CreateMap<Renter, RenterGetAllResponse>();
             CreateMap<CreateRoomRequest, Room>();
             CreateMap<Renter, RenterLoginResponse>();
-
         }
     }
 }

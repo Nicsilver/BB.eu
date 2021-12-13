@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using BB.eu.Shared.Models;
 
-namespace BB.eu.API.Requests
+namespace BB.eu.Shared.Requests
 {
     public class CreateRoomRequest
     {

@@ -1,7 +1,5 @@
-﻿using System.Xml.Linq;
-using BB.eu.Shared.Models;
+﻿using BB.eu.Shared.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace BB.eu.API.Data
 {

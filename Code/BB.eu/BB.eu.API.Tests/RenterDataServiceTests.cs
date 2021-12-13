@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
-using AutoMapper;
 using BB.eu.API.Data;
-using BB.eu.API.Mapper;
 using BB.eu.API.Services;
 using BB.eu.Shared.Models;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using Xunit;
 
 namespace BB.eu.API.Tests

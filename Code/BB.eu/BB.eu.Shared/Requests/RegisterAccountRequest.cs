@@ -1,4 +1,4 @@
-﻿namespace BB.eu.API.Requests
+﻿namespace BB.eu.Shared.Requests
 {
     public class RegisterAccountRequest
     {

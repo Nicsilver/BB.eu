@@ -3,6 +3,7 @@
 @using BB.eu.Shared.Models
 @inject IRenterService renterService
 @inject Data.LoginState loginState
+@inject IRoomService roomService
 
 @if (!loginState.IsLoggedIn)
 {
@@ -17,7 +18,7 @@ else
 {
     <EditForm Model="Renter" OnSubmit="HandleSubmit">
         <div class="form-group row">
-            <label for="firstName" class="col-sm-1 col-form-label">Email</label>
+            <label for="email" class="col-sm-1 col-form-label">Email</label>
             <div class="col-sm-2">
                 <InputText id="email" class="form-control" placeholder="Email@email.dk"
                            @bind-Value="Renter.Email"/>
@@ -49,6 +50,31 @@ else
             <label class="font-weight-bold´8">Efternavn: </label>
             <label>@Renter.LastName</label>
         </div>
+        @* <table class="table table-striped table-bordered"> *@
+        @*     <thead> *@
+        @*     <tr> *@
+        @*         <th>Rum Navn</th> *@
+        @*         <th>Rum oversigt</th> *@
+        @*         <th>adressse</th> *@
+        @*         <th>Gæste størelse</th> *@
+        @*         <th>Pris</th> *@
+        @*         <th>Id</th> *@
+        @*     </tr> *@
+        @*     </thead> *@
+        @*     <tbody> *@
+        @*     @foreach (Room room in Renter.Rooms) *@
+        @*     { *@
+        @*         <tr> *@
+        @*             <td>@room.RoomName</td> *@
+        @*             <td>@room.RoomDescription</td> *@
+        @*             <td>@room.Address</td> *@
+        @*             <td>@room.GuestCount</td> *@
+        @*             <td>@room.Price</td> *@
+        @*             <td>@room.Id</td> *@
+        @*         </tr> *@
+        @*     } *@
+        @*     </tbody> *@
+        @* </table> *@
     </EditForm>
 }
 
@@ -60,7 +86,7 @@ else
         loginState.OnChange += StateHasChanged;
     }
 
-    private Renter Renter { get; set; } = new Renter();
+    private Renter Renter { get; set; } = new();
 
     private async Task HandleSubmit()
     {
